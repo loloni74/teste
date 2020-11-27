@@ -17,7 +17,11 @@ module.exports = async (request) => {
   let apiData = await axios.get(html);
 
   apiData = JSON.parse(parser.toJson(apiData.data)).posts.post;
-  apiData = await model.r34Creator(apiData);
+  try{
+    apiData = await model.r34Creator(apiData)
+  } catch(error){
+    console.log(error)
+  }
 
   console.log("Running search: " + html);
 

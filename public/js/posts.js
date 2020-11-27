@@ -2,6 +2,7 @@ let datas = document.getElementsByTagName("data");
 const data = JSON.parse(datas[0].innerHTML);
 const query = JSON.parse(datas[1].innerHTML);
 
+import htmlBuilder from "./generalUse/htmlBuilder.js";
 String.prototype.splice = function (idx, rem, str) {
   return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
 };
@@ -20,7 +21,7 @@ class page {
 
       img.id = element.id;
       figCaption.innerHTML = element.score;
-      figure.style.display = 'none'
+      figure.style.display = "none";
 
       if (source === "r34") {
         var { src, classe } = r34.src(element);
@@ -32,7 +33,7 @@ class page {
 
       img.onload = () => {
         img.classList.add("imgCarregada");
-        figure.style.display = 'block'
+        figure.style.display = "block";
       };
       img.onclick = () => {
         modalMedia.openModal(element.id);
@@ -91,7 +92,6 @@ class r34 {
 // Modal class
 class modalMedia {
   constructor() {
-    console.clear();
     this.DOMmodal = document.getElementById("modalMedia");
     this.DOMmodalContent = document.getElementById("modalMediaContent");
     this.actualId = 0;
@@ -221,67 +221,108 @@ class modalMedia {
 class tagsHandling {
   constructor() {
     this.DOMtags = document.getElementById("tagsSection");
-    this.query = query;
+    this.query = htmlBuilder.objToList(query);
 
-    this.tags = query.tags || " ";
-    this.tags = this.tags.split(" ");
-    if (!Array.isArray(this.tags)) {
-      this.tags = [this.tags];
+    this.renderTags()
+
+    document.getElementById('addTag').onclick = ()=>{
+      this.addTagFromInput()
     }
-    this.DOMtags.innerHTML = "OVO LEGAL";
-    this.renderTags();
-
-    var input = document.querySelector("#domTagInput");
-    input.onkeyup = () => {
-      console.log("Key pressed");
-      let url = window.location.href;
-      url = url.replace("tags=", "tags=" + input.value + "+");
-      url = url.replace("+&", "&");
-      document.querySelector("#aAddTag").href = url;
-    };
   }
 
-  renderTags() {
-    this.DOMtags.innerHTML = "";
-    this.tags.filter((element) => {
-      element == "";
+  addTag(tagName, tagContent) {
+    let formatedTagName = tagName.toString().trim();
+    let formatedTagContent = tagContent.toString().replace(" ", "+");
+
+    let alreadyHave = this.query.some((element) => {
+      return element[0] == formatedTagName;
     });
-    if (this.tags[0] == "") {
-      this.tags.shift();
-    }
-
-    if (this.tags.length !== 0 && this.tags[0] !== "") {
-      this.tags.forEach((element) => {
-        if (element != "") {
-          let tag = document.createElement("span");
-          let tagName = document.createElement("span");
-          let tagDelete = document.createElement("a");
-          console.log(element);
-          tag.classList.add(element);
-          tagName.innerHTML = element;
-          tagName.classList.add("tagName");
-          tagDelete.classList.add(element, "tagDelete");
-
-          tagDelete.innerHTML = "-";
-          tagDelete.href = this.linkDeleteTag(element);
-
-          tag.appendChild(tagName);
-          tag.appendChild(tagDelete);
-
-          this.DOMtags.appendChild(tag);
+    if (alreadyHave) {
+      this.query.forEach((element) => {
+        if (element[0] == formatedTagName) {
+          element[1] = formatedTagContent;
         }
       });
+    } else {
+      this.query.push([formatedTagName, formatedTagContent]);
     }
+    console.log(this.query);
+    this.updateApply();
   }
-  linkDeleteTag(name) {
-    let url = window.location.href.replace(name + "+", "");
-    url = url.replace(name, "");
+  updateApply() {
+    let applyButton = document.getElementById("applySearchQuery");
+    applyButton.style.display = "flex";
+    applyButton.firstElementChild.href = this.getFullUrl();
+  }
+
+  getFullUrl() {
+    let url = htmlBuilder.build(this.getBaseUrl(), this.query);
     return url;
+  }
+  getBaseUrl() {
+    let rawUrl = window.location.href;
+    return rawUrl.slice(0, rawUrl.indexOf("?"));
+  }
+
+  deleteTag(tag){
+      this.query.forEach(element =>{
+        if (element[0] == 'tags'){
+          console.log(element[0])
+          element[1] = element[1].replace(' '+tag, '')
+          element[1] = element[1].replace(tag, '')
+        }
+      })
+      this.renderTags(true)
+  }
+  addTagFromInput(){
+    let input = document.getElementById('domTagInput')
+    let tag = input.value
+    if (input.value !== ''){
+      this.query.forEach(element =>{
+        if (element[0] == 'tags'){
+          element[1] = element[1] + " " + tag
+        }
+      })
+    }
+    input.value = ''
+    this.renderTags(true)
+  }
+  renderTags(iHaveToRender) {
+    let tags
+    this.query.forEach(element =>{
+      if (element[0] == 'tags'){
+        tags = element[1]
+      }
+    })
+    tags = tags.split(' ')
+    this.DOMtags.innerHTML = ''
+    tags.forEach((element) => {
+      if (element != "") {
+        let tag = document.createElement("span");
+        let tagName = document.createElement("span");
+        let tagDelete = document.createElement("a");
+        tagName.innerHTML = element;
+        tagName.classList.add("tagName");
+        tagDelete.classList.add("tagDelete");
+
+        tagDelete.innerHTML = "-";
+        tagDelete.onclick = () =>{
+          this.deleteTag(element)
+        }
+
+        tag.appendChild(tagName);
+        tag.appendChild(tagDelete);
+
+        this.DOMtags.appendChild(tag);
+      }
+    });
+    if (iHaveToRender){
+      this.updateApply();
+    }
   }
 }
 
 r34 = new r34();
-
 page = new page();
 
 tagsHandling = new tagsHandling();

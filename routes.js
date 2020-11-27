@@ -1,12 +1,9 @@
 const express = require("express");
-const routes = express.Router();
 const https = require("https");
-
-const axios = require("axios");
-const parser = require("xml2json");
-
 const api = require("./src/api/hFonts/main.js");
 
+
+const routes = express.Router();
 // Default route
 routes.get("/", (req, res) => {
   res.redirect("/home");
@@ -20,13 +17,13 @@ routes.get("/posts", async (req, res) => {
     data: JSON.stringify(apiData),
   });
 });
+
+// Home Route
 routes.get("/home", (req, res) => {
   res.render("home");
 });
-routes.get("/tags", (req, res) => {
-  res.render("tags");
-});
 
+// Best Route
 routes.get("/best", async (req, res) => {
   let apiData = await api.best(req.query);
   res.render("posts", {
@@ -35,19 +32,27 @@ routes.get("/best", async (req, res) => {
   });
 })
 
-routes.get("/image", function (req, res) {
+// Image Router
+routes.get("/image", (req, res)=> {
   let url = req.query.url;
   if (!url || req.query.url === "") {
     res.sendStatus(404);
   }
-  const request = https.get(url, function (response) {
+  const request = https.get(url, (response) => {
     res.setHeader("Content-Type", response.headers["content-type"]);
     response.pipe(res);
   });
 
-  request.on("error", function (e) {
+  request.on("error", (e) => {
     console.error(e);
   });
 });
+
+// Test Router
+routes.all("/test", (req,res) =>{
+  const htmlBuilder = require('./public/generalUse/htmlBuilder')
+  let result = htmlBuilder.build('rule34.xxx/',htmlBuilder.objToList({pid:1,query:"the_last_of_us minecraft"}))
+  res.send(result)
+})
 
 module.exports = routes;
