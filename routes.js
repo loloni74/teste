@@ -33,7 +33,7 @@ routes.get("/best", async (req, res) => {
     query: JSON.stringify(req.query),
     data: JSON.stringify(apiData),
   });
-});
+}).catch()
 
 routes.get("/image", function (req, res) {
   let url = req.query.url;

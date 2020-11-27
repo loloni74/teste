@@ -46,7 +46,7 @@ module.exports = {
             
             let file_url = element.file_url
             if (ext === 'webm' || ext === 'mp4'){
-                file_url = file_url.replaceAll('https://us.','https://ny3webm.')
+                file_url = file_url.replace('https://us.','https://ny3webm.')
             } 
 
             posts.push(new post({

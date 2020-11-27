@@ -82,7 +82,7 @@ class r34 {
           };
           img.src = "/image?url=" + img.src;
         };
-        img.src = img.src.replaceAll("https://us.", "https://img.");
+        img.src = img.src.replace("https://us.", "https://img.");
       };
       img.src = img.src + "?" + element.id;
     };
