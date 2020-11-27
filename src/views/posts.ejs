@@ -1,0 +1,32 @@
+<%- contentFor('css') %>
+<link rel="stylesheet/less" type="text/css" href="css/posts.less" />
+<%- contentFor('body') %>
+
+<data> <%= data %> </data>
+
+<data> <%= query %> </data>
+
+<div id="modalMedia" class="modalMedia">
+  <div id="modalMediaContent"></div>
+</div>
+
+<%- include('uses/topBar')%>
+
+<div id="managementContainer">
+
+  <div id="tagsContainer">
+    <div id="label">TAGS:</div>
+    <div id="tagsSection"></div>
+  </div>
+
+  <div id="pageSelector">
+    Ainda Por Fazer
+  </div>
+</div>
+
+<div id="body">
+  <div id="options">Ainda por fazer</div>
+  <div id="imageBoard"></div>
+</div>
+
+<script type="module" src="js/posts.js"></script>

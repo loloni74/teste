@@ -1,0 +1,12 @@
+<%- contentFor('css') %>
+<link rel="stylesheet/less" type="text/css" href="css/home.less" />
+<%- contentFor('body') %>
+
+<div class="main">
+  <h1>R34.io</h1>
+  <form action="posts" autocomplete="off">
+    <%- include('uses/search') -%>
+    <br />
+    <button type="submit">Search</button>
+  </form>
+</div>

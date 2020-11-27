@@ -1,0 +1,66 @@
+<div class="autocomplete" id='autocomplete' >
+  <input autofocus list="tags" id="domTagInput" type="text" name="tags" placeholder="Search">
+  <a id='aAddTag'><span id='addTag'>
+    <span>+</span>
+  </span>
+ </a>
+  <input name='pid' value=0 style="display:none">
+  <datalist id='tags'>
+    <option value="sheive">
+  <datalist>
+</div>
+
+
+<style>
+  .autocomplete {
+    display: flex;
+  }
+</style>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+const domTagInput = document.getElementById('domTagInput')
+const domDivTagInput = document.getElementById('autocomplete')
+let historicOfTags = ['sheive']
+
+function autocomplete(div, tags) {
+  console.log(tags)
+  tags.forEach(tag =>{
+    let option = document.createElement('option')
+    option.value = tag
+    div.querySelector('datalist').appendChild(option)
+  })
+}
+
+var debounce
+domTagInput.addEventListener('input', () => {
+  var input = document.getElementById('domTagInput')
+  var value = input.value
+  if (value != ''){
+    if (value.indexOf('\(') > -1){
+      value = value.split('\(')[0]
+      console.log(value)
+      value = value.trim()
+    }
+    value = value.replace(' ', '_')
+    input.value = value
+  }
+  clearTimeout(debounce)
+  if (domTagInput.value.length > 2) {
+    debounce = setTimeout(async () => {
+      tag = domTagInput.value
+      historicOfTags.push(tag)
+      if (tag !== historicOfTags[historicOfTags.lastIndexOf(tag)-1]){
+        console.log('Searching tag: '+tag)
+        const rawTags = await axios.get(`/api/autocomplete?tag=${tag}`)
+        var filteredTags = []
+        rawTags.data.forEach(element => {
+          filteredTags.push(element.label)
+        });
+        autocomplete(domDivTagInput, filteredTags)
+      }
+    },400);
+  }
+})
+
+</script>

@@ -1,0 +1,37 @@
+@rule34: #AAE5A3;
+.main{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    padding-top:30vh;
+    text-align: center;
+    h1 {
+        font-size: 6em;
+        color: #f1f1f1;
+        filter: drop-shadow(0 0 0.75rem rgb(20, 220, 87));
+    }
+    .autocomplete{
+        input{
+            margin-top:20px;
+            width:400px;
+            font-size:1.7em;
+            padding:5px;
+            border-radius: 3px;
+        }
+    }
+    button{
+        font-size: 2em;
+        margin-top:10px;
+        border-radius:3px
+    }
+}
+@media (max-width: 600px){
+    #domTagInput{
+        width:200px;
+    }
+    h1{
+        font-size:4em !important
+    }
+}

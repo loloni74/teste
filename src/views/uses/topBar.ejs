@@ -1,0 +1,39 @@
+<!-- Mobile -->
+<div id="mobileNavModal" class="mobileNavModal">
+  <h1>
+    <a class="possibleSelected" href="/posts">Posts</a>
+  </h1>
+  <h1>
+    <a class="possibleSelected" href="/tags">Tags</a>
+  </h1>
+</div>
+
+<!-- Desktop -->
+<div id="navBar">
+  <div id="logoDiv">
+    <div>
+      <a href="home" id="logo">r34.io</a>
+    </div>
+  </div>
+
+  <%- include('search')%>
+  <nav>
+    <ul>
+      <div class="navUlDesktop">
+        <li>
+          <a class="possibleSelected" href="/posts?tags=&pid=0">Posts</a>
+        </li>
+      </div>
+
+      <div class="navUlDesktop">
+        <li>
+          <a class="possibleSelected" href="/best?tags=&limit=10&quality=10"
+            >Best</a
+          >
+        </li>
+      </div>
+
+      <li class="navUlDesktop hamburguer" onclick="hamburguerW3(this)">X</li>
+    </ul>
+  </nav>
+</div>
