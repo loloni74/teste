@@ -303,12 +303,15 @@ input {
   }
   figure {
     break-inside: avoid;
+    cursor: pointer;
     figcaption {
       background-color: var(--mainColor);
       color: #12ce41;
       font-size: 16px;
       font-weight: 900;
       text-align: center;
+      position: relative;
+      z-index: 2;
     }
     margin-top: 3vh;
     border-radius: 3px;
@@ -316,9 +319,17 @@ input {
     width: 100%;
     img {
       width: 100%;
+      transition: .6s;
+      filter: brightness(85%);
     }
     video {
       width: 100%;
+    }
+  }
+  figure:hover{
+    img{
+      transform: scale(1.1);
+      filter: brightness(100%);
     }
   }
 }

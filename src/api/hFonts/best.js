@@ -16,9 +16,9 @@ module.exports = async (request) => {
     quality = 10;
   }
   tags = `&tags=${tags}`;
-
+  console.clear()
   let result = [];
-  for (x = 1; x < 200; x++) {
+  for (x = 0; x < 20; x++) {
     pid = `&pid=${x}`;
     let html = base_url + tags + pid;
     let apiData = await axios.get(html);
@@ -35,7 +35,6 @@ module.exports = async (request) => {
       }
       return true;
     });
-    console.clear()
     console.log(result.length)
     console.log("Running search: " + html);
   }
