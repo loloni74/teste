@@ -99,7 +99,10 @@ class modalMedia {
     this.listaDeImagens = [];
     this.idAtual = 0;
     this.modalOn = false;
-
+    this.atualizarLista();
+  }
+  atualizarLista() {
+    this.listaDeImagens = [];
     Array.from(document.querySelectorAll(".imgCarregada")).forEach(
       (element) => {
         if (element.style.display !== "none") {
@@ -109,6 +112,7 @@ class modalMedia {
     );
   }
   openModal(id) {
+    this.atualizarLista();
     console.log("Apresentation opened");
     this.modalOn = true;
     this.DOMmodal.style.display = "flex";
@@ -133,6 +137,7 @@ class modalMedia {
     return result;
   }
   changeImageModal(id) {
+    this.atualizarLista();
     this.DOMmodalContent.innerHTML = "";
     let { element, dados } = this.searchForElement(id);
     this.idAtual = dados.id;
@@ -187,6 +192,7 @@ class modalMedia {
   }
 
   nextModal(modalMedia) {
+    modalMedia.atualizarLista();
     console.log("Next image");
     let listaDeImagens = modalMedia.listaDeImagens;
     let id = modalMedia.idAtual;
@@ -197,6 +203,7 @@ class modalMedia {
     }
   }
   previusModal(modalMedia) {
+    modalMedia.atualizarLista();
     console.log("Previus image");
     let listaDeImagens = modalMedia.listaDeImagens;
     let id = modalMedia.idAtual;
@@ -222,12 +229,18 @@ class tagsHandling {
   constructor() {
     this.DOMtags = document.getElementById("tagsSection");
     this.query = htmlBuilder.objToList(query);
+    console.log(this.query)
 
-    this.renderTags()
+    this.renderTags();
 
-    document.getElementById('addTag').onclick = ()=>{
+    document.getElementById("addTag").onclick = () => {
+      this.addTagFromInput();
+    };
+    document.getElementById('tagInputForm').onsubmit = (event)=>{
+      event.preventDefault()
       this.addTagFromInput()
     }
+    this.updateNextPrevius()
   }
 
   addTag(tagName, tagContent) {
@@ -247,12 +260,40 @@ class tagsHandling {
       this.query.push([formatedTagName, formatedTagContent]);
     }
     console.log(this.query);
-    this.updateApply();
   }
+
   updateApply() {
     let applyButton = document.getElementById("applySearchQuery");
     applyButton.style.display = "flex";
+    this.addTag('pid','0')
     applyButton.firstElementChild.href = this.getFullUrl();
+  }
+  updateNextPrevius(){
+    let pageNumber = document.getElementById('pageNumber')
+    let next = document.getElementById('nextLink')
+    let previus = document.getElementById('previusLink')
+    this.query.forEach(element =>{
+      if (element[0] === 'pid'){
+        pageNumber.innerHTML = element[1]
+        if (element[1] == '0'){
+        }
+        element[1] = parseInt(element[1])+1
+      }
+    })
+    next.href = this.getFullUrl()
+    this.query.forEach(element =>{
+      if (element[0] === 'pid'){
+        element[1] = parseInt(element[1])-2
+        if (element[1] == -1){
+          element[1] = 0
+          previus.style.pointerEvents = 'none'
+        }else{
+          previus.href = this.getFullUrl()
+        }
+      }
+    })
+
+
   }
 
   getFullUrl() {
@@ -264,38 +305,38 @@ class tagsHandling {
     return rawUrl.slice(0, rawUrl.indexOf("?"));
   }
 
-  deleteTag(tag){
-      this.query.forEach(element =>{
-        if (element[0] == 'tags'){
-          console.log(element[0])
-          element[1] = element[1].replace(' '+tag, '')
-          element[1] = element[1].replace(tag, '')
-        }
-      })
-      this.renderTags(true)
+  deleteTag(tag) {
+    this.query.forEach((element) => {
+      if (element[0] == "tags") {
+        console.log(element[0]);
+        element[1] = element[1].replace(" " + tag, "");
+        element[1] = element[1].replace(tag, "");
+      }
+    });
+    this.renderTags(true);
   }
-  addTagFromInput(){
-    let input = document.getElementById('domTagInput')
-    let tag = input.value
-    if (input.value !== ''){
-      this.query.forEach(element =>{
-        if (element[0] == 'tags'){
-          element[1] = element[1] + " " + tag
+  addTagFromInput() {
+    let input = document.getElementById("domTagInput");
+    let tag = input.value;
+    if (input.value !== "") {
+      this.query.forEach((element) => {
+        if (element[0] == "tags") {
+          element[1] = element[1] + " " + tag;
         }
-      })
+      });
     }
-    input.value = ''
-    this.renderTags(true)
+    input.value = "";
+    this.renderTags(true);
   }
   renderTags(iHaveToRender) {
-    let tags
-    this.query.forEach(element =>{
-      if (element[0] == 'tags'){
-        tags = element[1]
+    let tags;
+    this.query.forEach((element) => {
+      if (element[0] == "tags") {
+        tags = element[1];
       }
-    })
-    tags = tags.split(' ')
-    this.DOMtags.innerHTML = ''
+    });
+    tags = tags.split(" ");
+    this.DOMtags.innerHTML = "";
     tags.forEach((element) => {
       if (element != "") {
         let tag = document.createElement("span");
@@ -306,9 +347,9 @@ class tagsHandling {
         tagDelete.classList.add("tagDelete");
 
         tagDelete.innerHTML = "-";
-        tagDelete.onclick = () =>{
-          this.deleteTag(element)
-        }
+        tagDelete.onclick = () => {
+          this.deleteTag(element);
+        };
 
         tag.appendChild(tagName);
         tag.appendChild(tagDelete);
@@ -316,48 +357,97 @@ class tagsHandling {
         this.DOMtags.appendChild(tag);
       }
     });
-    if (iHaveToRender){
+    if (iHaveToRender) {
       this.updateApply();
     }
   }
 }
 
+// Setting the r34 class 
 r34 = new r34();
+
+// Page image loading setup
 page = new page();
 
+// Tags system loading
 tagsHandling = new tagsHandling();
-window.onload = () => {
-  // Creating the page dynamically
-  modalMedia = new modalMedia();
 
-  // Setting up the modal open on click function
-  window.onclick = function (event) {
-    if (event.target == modalMedia.DOMmodal) {
-      modalMedia.closeModal(modalMedia);
-    }
-  };
+// Creating the page dynamically
+modalMedia = new modalMedia();
 
-  //Modal mouse configuration
-  window.onmouseover = function (event) {
-    if (event.target == modalMedia.DOMmodal) {
-      modalMedia.setCursor("crosshair");
-    } else {
-      modalMedia.setCursor("default");
-    }
-  };
-
-  document.addEventListener("keydown", (event) => {
-    let key = event.key;
-    let events = {
-      Right: modalMedia.nextModal,
-      ArrowRight: modalMedia.nextModal,
-      Left: modalMedia.previusModal,
-      ArrowLeft: modalMedia.previusModal,
-      Esc: modalMedia.closeModal,
-      Escape: modalMedia.closeModal,
-    };
-    if (modalMedia.modalOn) {
-      events[key](modalMedia);
-    }
-  });
+// Setting up the modal open on click function
+window.onclick = function (event) {
+  if (event.target == modalMedia.DOMmodal) {
+    modalMedia.closeModal(modalMedia);
+  }
 };
+
+//Modal mouse configuration
+window.onmouseover = function (event) {
+  if (event.target == modalMedia.DOMmodal) {
+    modalMedia.setCursor("crosshair");
+  } else {
+    modalMedia.setCursor("default");
+  }
+};
+
+
+
+document.addEventListener("keydown", (event) => {
+  let key = event.key;
+  let events = {
+    Right: modalMedia.nextModal,
+    ArrowRight: modalMedia.nextModal,
+    Left: modalMedia.previusModal,
+    ArrowLeft: modalMedia.previusModal,
+    Esc: modalMedia.closeModal,
+    Escape: modalMedia.closeModal,
+  };
+  if (modalMedia.modalOn) {
+    events[key](modalMedia);
+  }
+});
+
+document.addEventListener("touchstart", startTouch, false);
+document.addEventListener("touchmove", moveTouch, false);
+
+// Swipe Up / Down / Left / Right
+var initialX = null;
+var initialY = null;
+
+function startTouch(e) {
+  initialX = e.touches[0].clientX;
+  initialY = e.touches[0].clientY;
+}
+
+function moveTouch(e) {
+  if (initialX === null) {
+    return;
+  }
+
+  if (initialY === null) {
+    return;
+  }
+
+  var currentX = e.touches[0].clientX;
+  var currentY = e.touches[0].clientY;
+
+  var diffX = initialX - currentX;
+  var diffY = initialY - currentY;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // sliding horizontally
+    if (diffX > 0) {
+      // swiped left
+      console.log("swiped left");
+      modalMedia.nextModal(modalMedia);
+    } else {
+      // swiped right
+      console.log("swiped left");
+      modalMedia.previusModal(modalMedia);
+    }
+  }
+
+  initialX = null;
+  initialY = null;
+}

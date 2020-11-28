@@ -29,6 +29,7 @@ app.get('*', function(req, res){
 // Port
 const port = process.env.PORT || 8080
 app.listen(port, ()=>{
-    console.log("App listening on port: ", port)
+    console.clear()
+    console.log("App Funcionando na porta: ", port)
 })
 

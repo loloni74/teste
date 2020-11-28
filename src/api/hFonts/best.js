@@ -7,7 +7,7 @@ module.exports = async (request) => {
 
   let limit = request.limit || 10;
   let tags = request.tags || "";
-  tags = tags.replace(' ','+')
+  tags = tags.split(" ").join("+");
   let quality = request.quality || 10;
   if (limit == "" || limit == 0) {
     limit = 10;
@@ -18,7 +18,7 @@ module.exports = async (request) => {
   tags = `&tags=${tags}`;
 
   let result = [];
-  for (x = 1; x < 20; x++) {
+  for (x = 1; x < 200; x++) {
     pid = `&pid=${x}`;
     let html = base_url + tags + pid;
     let apiData = await axios.get(html);
@@ -35,6 +35,8 @@ module.exports = async (request) => {
       }
       return true;
     });
+    console.clear()
+    console.log(result.length)
     console.log("Running search: " + html);
   }
 

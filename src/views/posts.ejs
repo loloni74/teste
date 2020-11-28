@@ -10,7 +10,10 @@
   <div id="modalMediaContent"></div>
 </div>
 
+<form action="posts" autocomplete='off' id='tagInputForm'>
 <%- include('uses/topBar')%>
+<button type="submit" style='display:none'>Search</button>
+</form>
 
 <div id="managementContainer">
 
@@ -20,7 +23,9 @@
   </div>
 
   <div id="pageSelector">
-    Ainda Por Fazer
+    <a href="" id='previusLink'><img src="./content/next-icon.png" alt="previus" id='previus'></a>
+    <div id='pageNumber'><span>0</span></div>
+    <a href="" id='nextLink'><img src="./content/next-icon.png" alt="next" id='next'></a>
   </div>
 </div>
 

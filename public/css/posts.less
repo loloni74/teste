@@ -70,7 +70,7 @@
       padding-right: 40px;
       border-radius: 0px 0px 50px 0px;
       #logo {
-        color: #ffffff;
+        color: var(--white);
       }
     }
   }
@@ -188,6 +188,47 @@
   flex-direction: column;
   font-size: 20px;
   font-family: "Cute Font" !important;
+  #pageSelector{
+    margin-top:30px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background-color: var(--mainColor2);
+    font-size: 25px;
+    border-radius: 4px;
+    #pageNumber{
+      background-color:var(--mainColor2);
+      height:45px;
+      display:flex;
+      align-items: center;
+      margin-left:10px;
+      margin-right:10px;
+      span{
+        height:fit-content;
+      }
+    }
+    a{
+      width:fit-content;
+      height: 45px;
+    }
+    div{
+      height: fit-content;
+      overflow: hidden;
+    }
+    img{
+      background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
+      border-radius: 0 4px 4px 0;
+      height:45px;
+      transition: .3s;
+    }
+    img:hover{
+      cursor:pointer;
+      filter: brightness(130%) drop-shadow(0 0 1px black);
+    }
+    #previus{
+      transform: scaleX(-1);
+    }
+  }
   #tagsContainer {
     display: flex;
     justify-content: center;
