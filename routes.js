@@ -55,4 +55,7 @@ routes.all("/test", (req,res) =>{
   res.send(result)
 })
 
+routes.all('/next', (req,res) =>{
+  res.sendFile(__dirname +'/public/content/next-Icon.png')
+})
 module.exports = routes;
