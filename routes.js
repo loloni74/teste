@@ -6,7 +6,7 @@ const api = require("./src/api/hFonts/main.js");
 const routes = express.Router();
 // Default route
 routes.get("/", (req, res) => {
-  res.redirect("/home");
+  res.redirect("/posts");
 });
 
 // Posts route

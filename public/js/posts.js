@@ -28,7 +28,7 @@ class page {
         img.onerror = r34.imgErrorFix(element, figure);
       }
 
-      img.src = '/vitao'
+      img.src = src
       figure.classList.add(classe);
 
       img.onload = () => {
