@@ -58,4 +58,8 @@ routes.all("/test", (req,res) =>{
 routes.all('/next', (req,res) =>{
   res.sendFile(__dirname +'/public/content/next-Icon.png')
 })
+
+routes.all('/vitao', (req,res) =>{
+  res.sendFile(__dirname +'/public/content/vitao.jpeg')
+})
 module.exports = routes;
