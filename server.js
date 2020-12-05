@@ -12,35 +12,6 @@ app.use(cors()) // The cross-request treatment
 app.use(express.json()) // JSON handling
 app.use(expressLayouts) // Express ejs layout
 
-// Search engine config
-app.use('/robots.txt', (req,res) => {
-    res.type('text/plain')
-    res.send("User-agent: *\nDisallow: /");
-});
-
-
-// Routing
-const r34Routes = require('./routes/r34Routes.js')
-const r34ApiRoutes = require('./src/api/r34/uses/routes.js')
-
-// 
-app.all('/', (req,res) =>{
-    res.render("r34/home");
-})
-
-// r34
-app.use('/r34', r34Routes)
-app.use('/r34Api', r34ApiRoutes)
-
-// Image Router
-app.all("/image", async (req, res) => {
-    let url = req.query.url;
-    if (!url || req.query.url === "") {
-      res.sendStatus(404);
-    }
-    var response = await request(url);
-    response.pipe(res);
-});
 
 // Error if anything goes wrong
 app.get('*', (req,res) => {
