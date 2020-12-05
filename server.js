@@ -50,7 +50,6 @@ app.get('*', (req,res) => {
 // Port
 const port = process.env.PORT || 3000
 app.listen(port, ()=>{
-    console.clear()
     console.log("App Funcionando na porta: ", port)
 })
 
