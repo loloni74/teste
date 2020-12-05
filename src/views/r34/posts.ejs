@@ -1,10 +1,12 @@
 <%- contentFor('css') %>
-<link rel="stylesheet/less" type="text/css" href="css/posts.less" />
+<link rel="stylesheet" type="text/css" href="css/posts.css" />
 <%- contentFor('body') %>
 
 <data> <%= data %> </data>
 
 <data> <%= query %> </data>
+
+
 
 <div id="modalMedia" class="modalMedia">
   <div id="modalMediaContent"></div>
@@ -16,16 +18,15 @@
 </form>
 
 <div id="managementContainer">
-
   <div id="tagsContainer">
     <div id="label">TAGS:</div>
     <div id="tagsSection"></div>
   </div>
-
+  <div style='display:block !important;' id='imgLoadCache'></div>
   <div id="pageSelector">
-    <a href="" id='previusLink'><img src="/next" alt="previus" id='previus'></a>
+    <a href="" id='previusLink'><img src="/r34/next" alt="previus" id='previus'></a>
     <div id='pageNumber'><span>0</span></div>
-    <a href="" id='nextLink'><img src="/next" alt="next" id='next'></a>
+    <a href="" id='nextLink'><img src="/r34/next" alt="next" id='next'></a>
   </div>
 </div>
 
@@ -35,3 +36,4 @@
 </div>
 
 <script type="module" src="js/posts.js"></script>
+

@@ -5,8 +5,8 @@ const model = require("../../models/postsModel.js");
 module.exports = async (request) => {
   let base_url = "https://rule34.xxx/index.php?page=dapi&s=post&q=index";
 
-  let pid = request.pid || "";
-  let limit = request.limit || 20;
+  let pid = request.pid || "10";
+  let limit = request.limit || 50;
   let tags = request.tags || "";
 
   pid = `&pid=${request.pid}`;

@@ -23,7 +23,6 @@ const domDivTagInput = document.getElementById('autocomplete')
 let historicOfTags = ['sheive']
 
 function autocomplete(div, tags) {
-  console.log(tags)
   tags.forEach(tag =>{
     let option = document.createElement('option')
     option.value = tag
@@ -32,26 +31,20 @@ function autocomplete(div, tags) {
 }
 
 var debounce
-domTagInput.addEventListener('input', () => {
-  var input = document.getElementById('domTagInput')
+domTagInput.addEventListener('keydown', (event) => {
+
+  if (event.key != 'Enter' && event.key !== undefined ){
+    var input = document.getElementById('domTagInput')
   var value = input.value
-  if (value != ''){
-    if (value.indexOf('\(') > -1){
-      value = value.split('\(')[0]
-      console.log(value)
-      value = value.trim()
-    }
-    value = value.replace(' ', '_')
-    input.value = value
-  }
   clearTimeout(debounce)
-  if (domTagInput.value.length > 2) {
+  if (domTagInput.value.length > 1) {
     debounce = setTimeout(async () => {
       tag = domTagInput.value
       historicOfTags.push(tag)
       if (tag !== historicOfTags[historicOfTags.lastIndexOf(tag)-1]){
         console.log('Searching tag: '+tag)
-        const rawTags = await axios.get(`/api/autocomplete?tag=${tag}`)
+        const rawTags = await axios.get(`/r34api/autocomplete?tag=${tag}`)
+        console.log(rawTags)
         var filteredTags = []
         rawTags.data.forEach(element => {
           filteredTags.push(element.label)
@@ -59,6 +52,24 @@ domTagInput.addEventListener('input', () => {
         autocomplete(domDivTagInput, filteredTags)
       }
     },400);
+  }
+  }
+})
+domTagInput.addEventListener('input', ()=>{
+  var input = document.getElementById('domTagInput')
+  var value = input.value
+  if (value != ''){
+    value = value.replace(' ', '_').split('_')
+    let ver = value[value.length-1]
+    ver = ver.slice(1,ver.length-1)
+    try{
+      ver = parseInt(ver)
+    }catch{
+    }
+    if (Number.isInteger(ver)){
+      value.pop();
+    }
+    input.value = value.join('_')
   }
 })
 

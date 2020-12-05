@@ -4,7 +4,6 @@ const model = require("../../models/postsModel.js");
 
 module.exports = async (request) => {
   let base_url = "https://rule34.xxx/index.php?page=dapi&s=post&q=index";
-
   let limit = request.limit || 10;
   let tags = request.tags || "";
   tags = tags.split(" ").join("+");

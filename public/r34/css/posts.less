@@ -302,6 +302,7 @@ input {
     border: 1px solid white;
   }
   figure {
+    overflow: hidden;
     break-inside: avoid;
     cursor: pointer;
     figcaption {
@@ -318,6 +319,8 @@ input {
     overflow: hidden;
     width: 100%;
     img {
+      max-height: 400px;
+      width:auto;
       width: 100%;
       transition: .6s;
       filter: brightness(85%);

@@ -11,6 +11,7 @@ class page {
   constructor() {
     this.DOMImageBoard = document.getElementById("imageBoard");
     this.renderPosts("r34");
+
   }
   renderPosts(source) {
     data.forEach((element) => {
@@ -18,17 +19,28 @@ class page {
       let figure = document.createElement("figure");
       let figCaption = document.createElement("figcaption");
       let img = document.createElement("img");
+      img.alt = 'HentaiImage'
 
       img.id = element.id;
       figCaption.innerHTML = element.score;
       figure.style.display = "none";
 
       if (source === "r34") {
-        var { src, classe } = r34.src(element);
-        img.onerror = r34.imgErrorFix(element, figure);
+        var { file_Src, src, classe } = r34.src(element);
+        img.onerror = r34.imgErrorFix(img);
       }
 
-      img.src = src
+      img.setAttribute("file_Src", file_Src);
+
+      let load = document.createElement("img")
+      load.setAttribute('file_Src',file_Src)
+      load.onerror = r34.imgErrorFix(load)
+      load.style.width = '0px'
+      load.style.height = '0px'
+      document.getElementById('imgLoadCache').appendChild(load)
+      document.getElementById('imgLoadCache').style.display = 'none'
+
+      img.src = src;
       figure.classList.add(classe);
 
       img.onload = () => {
@@ -56,36 +68,37 @@ class r34 {
       src = element.preview_url;
       classe = "figureVideo";
     } else if (ext === "gif") {
-      src = element.sample_url.splice(22, 0, "/");
+      src = "/image?url=" + element.preview_url.replace(".xxx", ".xxx/");
       classe = "figureGif";
     } else {
-      src = element.sample_url.splice(22, 0, "/");
+      src = "/image?url=" + element.preview_url.replace(".xxx", ".xxx/");
       classe = "figureImage";
     }
-
     if (src[src.length - 1] === "/") {
       src = src.slice(0, -1);
     }
     return {
+      file_Src: "/image?url=" + element.file_url.replace('.xxx','.xxx/'),
       src: src,
       classe: classe,
     };
   }
-  imgErrorFix(element, figure) {
+  imgErrorFix(img) {
     return () => {
-      let img = document.getElementById(element.id);
-      let parent = figure;
+      console.error('IMAGEM DEU ERRO')
+      console.log(img.src)
+      let parent = img.parentElement;
       img.onerror = () => {
+        img.src = img.src + "?" + img.id;
         img.onerror = () => {
-          img.onerror = () => {
+          if (parent.noneName == 'figure'){
             parent.style.display = "none";
-            console.warn(img.src);
-          };
-          img.src = "/image?url=" + img.src;
+          }
+          img.onerror = null;
+          console.warn(img.src);
         };
-        img.src = img.src.replace("https://us.", "https://img.");
       };
-      img.src = img.src + "?" + element.id;
+      img.src = img.src.replace("https://us.", "https://img.");
     };
   }
 }
@@ -161,6 +174,7 @@ class modalMedia {
       window.location.href.split("/")[2] +
       "/image?url=" +
       dados.file_url.replace(".xxx", ".xxx/");
+    console.log(source.src)
 
     let info = document.createElement("div");
     info.classList.add("infoContainer");
@@ -178,9 +192,13 @@ class modalMedia {
     console.log("Opening image + ", dados);
     let div = document.createElement("div");
     let img = document.createElement("img");
+    img.alt = 'hentaiImage'
 
     div.classList.add("imgContainer");
-    img.src = element.src;
+    img.src = element.getAttribute("file_Src")
+    console.log(img.src);
+    img.id = element.id;
+    img.onerror = r34.imgErrorFix(img);
     div.appendChild(img);
 
     let info = document.createElement("div");
@@ -229,18 +247,18 @@ class tagsHandling {
   constructor() {
     this.DOMtags = document.getElementById("tagsSection");
     this.query = htmlBuilder.objToList(query);
-    console.log(this.query)
+    console.log(this.query);
 
     this.renderTags();
 
     document.getElementById("addTag").onclick = () => {
       this.addTagFromInput();
     };
-    document.getElementById('tagInputForm').onsubmit = (event)=>{
-      event.preventDefault()
-      this.addTagFromInput()
-    }
-    this.updateNextPrevius()
+    document.getElementById("tagInputForm").onsubmit = (event) => {
+      event.preventDefault();
+      this.addTagFromInput();
+    };
+    this.updateNextPrevius();
   }
 
   addTag(tagName, tagContent) {
@@ -265,35 +283,33 @@ class tagsHandling {
   updateApply() {
     let applyButton = document.getElementById("applySearchQuery");
     applyButton.style.display = "flex";
-    this.addTag('pid','0')
+    this.addTag("pid", "0");
     applyButton.firstElementChild.href = this.getFullUrl();
   }
-  updateNextPrevius(){
-    let pageNumber = document.getElementById('pageNumber')
-    let next = document.getElementById('nextLink')
-    let previus = document.getElementById('previusLink')
-    this.query.forEach(element =>{
-      if (element[0] === 'pid'){
-        pageNumber.innerHTML = element[1]
-        if (element[1] == '0'){
+  updateNextPrevius() {
+    let pageNumber = document.getElementById("pageNumber");
+    let next = document.getElementById("nextLink");
+    let previus = document.getElementById("previusLink");
+    this.query.forEach((element) => {
+      if (element[0] === "pid") {
+        pageNumber.innerHTML = element[1];
+        if (element[1] == "0") {
         }
-        element[1] = parseInt(element[1])+1
+        element[1] = parseInt(element[1]) + 1;
       }
-    })
-    next.href = this.getFullUrl()
-    this.query.forEach(element =>{
-      if (element[0] === 'pid'){
-        element[1] = parseInt(element[1])-2
-        if (element[1] == -1){
-          element[1] = 0
-          previus.style.pointerEvents = 'none'
-        }else{
-          previus.href = this.getFullUrl()
+    });
+    next.href = this.getFullUrl();
+    this.query.forEach((element) => {
+      if (element[0] === "pid") {
+        element[1] = parseInt(element[1]) - 2;
+        if (element[1] == -1) {
+          element[1] = 0;
+          previus.style.pointerEvents = "none";
+        } else {
+          previus.href = this.getFullUrl();
         }
       }
-    })
-
-
+    });
   }
 
   getFullUrl() {
@@ -363,7 +379,7 @@ class tagsHandling {
   }
 }
 
-// Setting the r34 class 
+// Setting the r34 class
 r34 = new r34();
 
 // Page image loading setup
@@ -391,8 +407,6 @@ window.onmouseover = function (event) {
   }
 };
 
-
-
 document.addEventListener("keydown", (event) => {
   let key = event.key;
   let events = {
@@ -403,38 +417,30 @@ document.addEventListener("keydown", (event) => {
     Esc: modalMedia.closeModal,
     Escape: modalMedia.closeModal,
   };
-  if (modalMedia.modalOn) {
+  if (modalMedia.modalOn && events[key]) {
     events[key](modalMedia);
   }
 });
 
 document.addEventListener("touchstart", startTouch, false);
 document.addEventListener("touchmove", moveTouch, false);
-
-// Swipe Up / Down / Left / Right
 var initialX = null;
 var initialY = null;
-
 function startTouch(e) {
   initialX = e.touches[0].clientX;
   initialY = e.touches[0].clientY;
 }
-
 function moveTouch(e) {
   if (initialX === null) {
     return;
   }
-
   if (initialY === null) {
     return;
   }
-
   var currentX = e.touches[0].clientX;
   var currentY = e.touches[0].clientY;
-
   var diffX = initialX - currentX;
   var diffY = initialY - currentY;
-
   if (Math.abs(diffX) > Math.abs(diffY)) {
     // sliding horizontally
     if (diffX > 0) {
@@ -447,7 +453,16 @@ function moveTouch(e) {
       modalMedia.previusModal(modalMedia);
     }
   }
-
   initialX = null;
   initialY = null;
+}
+
+window.onload = ()=>{
+  let allImages = document.getElementById('imgLoadCache').children
+  for (let x = 0; x < allImages.length; x++){
+    let element = allImages[x]
+    if (!element.getAttribute('file_Src').endsWith('.webm')){
+      element.src = element.getAttribute('file_Src')
+    }
+  } 
 }
