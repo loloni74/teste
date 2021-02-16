@@ -180,7 +180,7 @@ class modalMedia {
     listadetags.forEach(element => {
       let tag = document.createElement('a')
       tag.innerHTML = element
-      tag.href = 'http://localhost:3000/r34/posts?pid=0&tags=' + element
+      tag.href = 'https://vitaodelicia.herokuapp.com/r34/posts?tags=' + element
       info.appendChild(tag)
       info.appendChild(document.createElement('br'))
     })
