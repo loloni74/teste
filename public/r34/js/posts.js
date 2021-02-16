@@ -150,6 +150,11 @@ class modalMedia {
     return result;
   }
   changeImageModal(id) {
+    this.DOMmodal.innerHTML = ''
+    let modalContent = document.createElement('div')
+    modalContent.id ='modalMediaContent'
+    this.DOMmodal.appendChild(modalContent)
+    this.DOMmodalContent = document.getElementById("modalMediaContent");
     this.atualizarLista();
     this.DOMmodalContent.innerHTML = "";
     let { element, dados } = this.searchForElement(id);
@@ -162,13 +167,36 @@ class modalMedia {
       this.createImage(element, dados);
     }
   }
+
+  createinfo(dados){
+    let info = document.createElement("div");
+    info.classList.add("infoContainer");
+
+
+    let listadetags = dados.tags.split(' ')
+    listadetags.pop()
+    listadetags.splice(0,1)
+    console.log(listadetags)
+    listadetags.forEach(element => {
+      let tag = document.createElement('a')
+      tag.innerHTML = element
+      tag.href = 'http://localhost:3000/r34/posts?pid=0&tags=' + element
+      info.appendChild(tag)
+      info.appendChild(document.createElement('br'))
+    })
+
+    return info
+  }
+
   createVideo(dados) {
     console.log("Opening Video + ", dados);
+
     let div = document.createElement("div");
     let video = document.createElement("video");
     let source = document.createElement("source");
 
     div.classList.add("imgContainer");
+
     source.src =
       "http://" +
       window.location.href.split("/")[2] +
@@ -176,16 +204,14 @@ class modalMedia {
       dados.file_url.replace(".xxx", ".xxx/");
     console.log(source.src)
 
-    let info = document.createElement("div");
-    info.classList.add("infoContainer");
-    info.innerHTML = JSON.stringify(dados);
     video.controls = "controls";
     video.autoplay = true;
 
     video.appendChild(source);
     div.appendChild(video);
+    this.DOMmodalContent.appendChild(this.createinfo(dados));
     this.DOMmodalContent.appendChild(div);
-    this.DOMmodalContent.appendChild(info);
+
   }
 
   createImage(element, dados) {
@@ -200,16 +226,12 @@ class modalMedia {
     img.id = element.id;
     img.onerror = r34.imgErrorFix(img);
     div.appendChild(img);
-
-    let info = document.createElement("div");
-    info.classList.add("infoContainer");
-    info.innerHTML = JSON.stringify(dados);
-
+    this.DOMmodalContent.appendChild(this.createinfo(dados));
     this.DOMmodalContent.appendChild(div);
-    this.DOMmodalContent.appendChild(info);
   }
 
   nextModal(modalMedia) {
+    
     modalMedia.atualizarLista();
     console.log("Next image");
     let listaDeImagens = modalMedia.listaDeImagens;
@@ -247,7 +269,6 @@ class tagsHandling {
   constructor() {
     this.DOMtags = document.getElementById("tagsSection");
     this.query = htmlBuilder.objToList(query);
-    console.log(this.query);
 
     this.renderTags();
 
@@ -368,6 +389,9 @@ class tagsHandling {
         };
 
         tag.appendChild(tagName);
+        if (element == 'sort:score:desc'){
+          document.getElementById('turnToBest').style.display = 'none';
+        }
         tag.appendChild(tagDelete);
 
         this.DOMtags.appendChild(tag);
@@ -457,6 +481,9 @@ function moveTouch(e) {
   initialY = null;
 }
 
+
+// Load images at cache
+/*
 window.onload = ()=>{
   let allImages = document.getElementById('imgLoadCache').children
   for (let x = 0; x < allImages.length; x++){
@@ -466,3 +493,8 @@ window.onload = ()=>{
     }
   } 
 }
+*/
+
+let best = document.getElementById('turnToBest')
+best.href = tagsHandling.getFullUrl().replace('tags=','tags=sort:score:desc+')
+best.innerHTML = 'Sort By Best';

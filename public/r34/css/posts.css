@@ -21,7 +21,7 @@
 }
 #modalMediaContent .imgContainer img {
   max-width: 80vw;
-  max-height: 90vh;
+  max-height: 99vh;
   height: auto;
   width: auto;
 }
@@ -31,11 +31,29 @@
   height: auto;
   width: auto;
 }
+
+
 #modalMediaContent .infoContainer {
-  display: none;
-  max-width: 10vw;
+  padding:10px;
   background-color: black;
+  max-height: 80vh;
+  overflow:scroll;
+  font-size: 15px;
+  font-weight:500;
+  font-family: 'helvetica'
 }
+#modalMediaContent .infoContainer a{
+  max-width:100px;
+  overflow:hidden;
+  display:block;
+  margin:1px;
+  padding:5px;
+  border-radius:30px;
+  background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
+  text-align:center;
+}
+
+
 #body {
   display: flex;
   justify-content: space-around;
@@ -267,8 +285,8 @@ input {
 #imageBoard {
   background: #32303a;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 40px;
-  width: 75vw;
+  border-radius: 20px;
+  width: 85vw;
   padding: 15px 15px;
   columns: 5;
   grid-gap: 2vw;
