@@ -86,7 +86,7 @@ body {
 input,
 textarea,
 button {
-  color: black !important;
+  color: black;
   font-family: "Courier New", Courier, monospace !important;
 }
 a {
