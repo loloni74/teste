@@ -264,11 +264,39 @@ class modalMedia {
     this.DOMmodal.style.cursor = cursor;
   }
 }
+class qualityHandling {
+  constructor(){
+    var slider = document.getElementById('inputMinQuality')
+    var displayQualidade = document.getElementById('displayQualidade')
+    slider.oninput = ()=> displayQualidade.innerHTML = slider.value
+    slider.onchange = () => this.changeQuality(slider.value)
+    this.returnQuality()
+  }
+  changeQuality(newQuality){
+    console.log(tagsHandling.query)
+    tagsHandling.query.forEach( element =>{
+      if (element[0] == "quality") {
+        element[1] = newQuality
+      }
+    })
+    tagsHandling.updateApply()
+  }
+  returnQuality(){
+    tagsHandling.query.forEach (element =>{
+      if (element[0] == "quality"){
+        displayQualidade.innerHTML = element[1]
+        document.getElementById('inputMinQuality').setAttribute('value', element[1])
+      }
+    })
+  }
+}
+
 
 class tagsHandling {
   constructor() {
     this.DOMtags = document.getElementById("tagsSection");
     this.query = htmlBuilder.objToList(query);
+    console.log(this.query)
 
     this.renderTags();
 
@@ -411,6 +439,9 @@ page = new page();
 
 // Tags system loading
 tagsHandling = new tagsHandling();
+
+// Tags system loading
+qualityHandling = new qualityHandling();
 
 // Creating the page dynamically
 modalMedia = new modalMedia();

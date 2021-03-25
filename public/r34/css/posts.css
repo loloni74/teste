@@ -42,6 +42,7 @@
   font-weight:500;
   font-family: 'helvetica'
 }
+
 #modalMediaContent .infoContainer a{
   max-width:100px;
   overflow:hidden;
@@ -76,6 +77,9 @@
 }
 @media (max-width: 600px) {
   #navBar div#logoDiv {
+    display: none;
+  }
+  #modalMediaContent .infoContainer {
     display: none;
   }
 }
@@ -250,15 +254,53 @@
   border-radius: 5px;
   font-family: "Cute Font" !important;
   box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.25);
-  background-color: var(--mainColor2);
   padding-right: 10px;
   padding-left: 10px;
+}
+#DIVMinQuality{
+  margin-left: 20vw;
+  margin-right: 20vw;
+  font-size:30px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-family: "Cute Font" !important;
+  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.25);
+  padding-right: 10px;
+  padding-left: 10px;
+}
+#inputMinQuality{
+  margin-top:10px;
+  width: 80%;
+  margin-left:10%;
+  margin-right:10%;
+  -webkit-appearance: none;
+  height: 25px;
+  background: #152342;
+  box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 25%);
+  outline: none;
+}
+#inputMinQuality::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: var(--mainColor1);
+  cursor: pointer;
 }
 #managementContainer #tagsContainer #label {
   font-size: 30px;
 }
 #managementContainer #tagsContainer #tagsSection {
   display: flex;
+  max-width: 70vw;
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+#managementContainer #tagsContainer #tagsSection::-webkit-scrollbar {
+  display: none;
 }
 #managementContainer #tagsContainer #tagsSection span {
   border-radius: 5px;
@@ -274,7 +316,7 @@
   height: 25px;
   cursor: pointer;
   text-align: center;
-  border-radius: 100%;
+  margin-right: 10px;
 }
 data {
   display: none;
@@ -282,6 +324,8 @@ data {
 input {
   width: 100%;
 }
+
+
 #imageBoard {
   background: #32303a;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
