@@ -518,6 +518,7 @@ function moveTouch(e) {
 
 // Load images at cache
 
+/*
 window.onload = ()=>{
   let allImages = document.getElementById('imgLoadCache').children
   for (let x = 0; x < allImages.length; x++){
@@ -528,7 +529,7 @@ window.onload = ()=>{
     }
   } 
 }
-
+*/
 
 let best = document.getElementById('turnToBest')
 best.href = tagsHandling.getFullUrl().replace('tags=','tags=sort:score:desc+')
