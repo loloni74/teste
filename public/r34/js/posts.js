@@ -27,7 +27,10 @@ class page {
 
       if (source === "r34") {
         var { file_Src, src, classe } = r34.src(element);
-        img.onerror = r34.imgErrorFix(img);
+        console.log(img)
+        if (true){
+          img.onerror = r34.imgErrorFix(img);
+        }
       }
 
       img.setAttribute("file_Src", file_Src);
@@ -80,7 +83,7 @@ class r34 {
     return {
       file_Src: "/image?url=" + element.file_url.replace('.xxx','.xxx/'),
       src: src,
-      classe: classe,
+      classe: classe
     };
   }
   imgErrorFix(img) {
@@ -180,7 +183,7 @@ class modalMedia {
     listadetags.forEach(element => {
       let tag = document.createElement('a')
       tag.innerHTML = element
-      tag.href = 'https://vitaodelicia.herokuapp.com/r34/posts?tags=' + element
+      tag.href = 'https://vitaodelicia.herokuapp.com/r34/posts?quality=0&tags=' + element
       info.appendChild(tag)
       info.appendChild(document.createElement('br'))
     })
@@ -514,17 +517,18 @@ function moveTouch(e) {
 
 
 // Load images at cache
-/*
+
 window.onload = ()=>{
   let allImages = document.getElementById('imgLoadCache').children
   for (let x = 0; x < allImages.length; x++){
     let element = allImages[x]
-    if (!element.getAttribute('file_Src').endsWith('.webm')){
+    console.log(element.getAttribute('file_src').endsWith('.webm'))
+    if (element.getAttribute('file_Src').endsWith('.png') || element.getAttribute('file_Src').endsWith('.jpg') || element.getAttribute('file_Src').endsWith('.jpeg')){
       element.src = element.getAttribute('file_Src')
     }
   } 
 }
-*/
+
 
 let best = document.getElementById('turnToBest')
 best.href = tagsHandling.getFullUrl().replace('tags=','tags=sort:score:desc+')

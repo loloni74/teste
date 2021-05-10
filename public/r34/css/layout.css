@@ -81,7 +81,6 @@
 body {
   background-color: var(--bodyColor);
   font-size: 9px;
-  font-family: "Lobster", cursive;
 }
 input,
 textarea,

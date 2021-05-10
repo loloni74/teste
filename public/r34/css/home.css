@@ -1,3 +1,12 @@
+::placeholder {
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+body{
+  height: 2000px;
+  overflow: hidden;
+}
 .main {
   display: flex;
   flex-direction: column;
@@ -10,13 +19,13 @@
 .main h1 {
   font-size: 12em;
   color: #f1f1f1;
-  filter: drop-shadow(0 0 0.75rem #14dc57);
+
 }
 .main .autocomplete input {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 400px;
   font-size: 1.7em;
-  padding: 5px;
+  padding: 2px;
   border-radius: 3px;
 }
 .main .autocomplete input:focus {
@@ -39,7 +48,7 @@
   display: none;
 }
 #domTagInput{
-  margin: 10px;
+  margin-top: 30px;
   margin-left: 0;
   margin-right: 0;
   background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
@@ -47,14 +56,14 @@
   border-radius: 16px;
   font-size: 20px;
   border: 0;
-  padding: 20px;
+  padding: 14px;
   color: white !important;
 }
 button{
   margin-top: 0 !important;
   background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
   border: 0;
-  padding: 10px;
+  padding: 7px;
   color:white  !important;
   transition: 0.3s;
 }

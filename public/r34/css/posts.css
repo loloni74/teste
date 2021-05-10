@@ -207,7 +207,7 @@
   font-family: "Cute Font" !important;
 }
 #managementContainer #pageSelector {
-  margin-top: 30px;
+  margin-top: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,8 +258,9 @@
   padding-left: 10px;
 }
 #DIVMinQuality{
-  margin-left: 20vw;
-  margin-right: 20vw;
+  margin: 0 auto;
+  margin-top:5px;
+  margin-bottom:30px;
   font-size:30px ;
   display: flex;
   justify-content: center;
@@ -332,44 +333,44 @@ input {
   border-radius: 20px;
   width: 85vw;
   padding: 15px 15px;
-  columns: 5;
+  columns: 7;
   grid-gap: 2vw;
   break-inside: avoid;
 }
 @media (max-width: 900px) {
   #imageBoard {
-    columns: 4;
+    columns: 6;
   }
 }
 @media (max-width: 750px) {
   #imageBoard {
-    columns: 3;
+    columns: 4;
   }
 }
 @media (max-width: 600px) {
   #imageBoard {
-    columns: 2;
+    columns: 3;
   }
 }
 @media (max-width: 400px) {
   #imageBoard {
-    columns: 1;
+    columns: 2;
   }
 }
 #imageBoard .figureVideo {
-  border: 3px solid blue;
+  border: 1px solid rgb(47, 246, 253);
 }
 #imageBoard .figureGif {
-  border: 2px solid #00ff4c;
+  border: 1px solid #36eb6c;
 }
 #imageBoard .figureImage {
-  border: 1px solid white;
+  border: 1px solid rgb(250, 43, 215);
 }
 #imageBoard figure {
   break-inside: avoid;
   cursor: pointer;
-  margin-top: 3vh;
-  border-radius: 3px;
+  margin-bottom: 3vh;
+  border-radius: 1px;
   overflow: hidden;
   width: 100%;
 }
@@ -387,7 +388,7 @@ input {
   width: auto;
   width: 100%;
   transition: 0.6s;
-  filter: brightness(85%);
+  filter: brightness(95%);
 }
 #imageBoard figure video {
   width: 100%;
