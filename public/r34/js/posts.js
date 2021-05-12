@@ -27,7 +27,6 @@ class page {
 
       if (source === "r34") {
         var { file_Src, src, classe } = r34.src(element);
-        console.log(img)
         if (true){
           img.onerror = r34.imgErrorFix(img);
         }
@@ -357,6 +356,7 @@ class tagsHandling {
         if (element[1] == -1) {
           element[1] = 0;
           previus.style.pointerEvents = "none";
+          previus.children[0].backgroundColor = "grey";
         } else {
           previus.href = this.getFullUrl();
         }

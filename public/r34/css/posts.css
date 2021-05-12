@@ -14,7 +14,7 @@
   justify-content: center;
   align-items: center;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 #modalMediaContent {
   display: flex;
@@ -36,11 +36,14 @@
 #modalMediaContent .infoContainer {
   padding:10px;
   background-color: black;
-  max-height: 80vh;
+  max-height: 95vh;
   overflow:scroll;
   font-size: 15px;
   font-weight:500;
   font-family: 'helvetica'
+}
+.infoContainer::-webkit-scrollbar {
+  display: none;
 }
 
 #modalMediaContent .infoContainer a{
@@ -49,9 +52,10 @@
   display:block;
   margin:1px;
   padding:5px;
-  border-radius:30px;
   background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
-  text-align:center;
+}
+#modalMediaContent .infoContainer a:hover{
+  opacity: 0.5;
 }
 
 
@@ -73,7 +77,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: space-between;
-  height: 80px;
+  height: 60px;
 }
 @media (max-width: 600px) {
   #navBar div#logoDiv {
@@ -84,7 +88,7 @@
   }
 }
 #navBar div#logoDiv div {
-  font-size: 4.6em;
+  font-size: 3.6em;
   background-color: #01123b;
   padding: 10px;
   padding-left: 20px;
@@ -95,7 +99,7 @@
   color: var(--white);
 }
 #navBar input {
-  margin: 20px;
+  margin: 10px;
   margin-left: 0;
   margin-right: 0;
   background-color: #0135ad;
@@ -108,7 +112,7 @@
 }
 #navBar span {
   display: flex;
-  margin-top: 20px;
+  margin-top: 10px;
   height: 40px;
   background-color: #01123b;
   align-items: center;
@@ -132,7 +136,6 @@
   outline: 0;
 }
 #navBar div#applySearchQuery {
-  display: flex;
   align-items: center;
   justify-content: center;
   display: none;
@@ -206,8 +209,9 @@
   font-size: 20px;
   font-family: "Cute Font" !important;
 }
-#managementContainer #pageSelector {
-  margin-top: 5px;
+#pageSelector {
+  margin-bottom:-10px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -215,36 +219,36 @@
   font-size: 25px;
   border-radius: 4px;
 }
-#managementContainer #pageSelector #pageNumber {
-  background-color: var(--mainColor2);
+#pageSelector #pageNumber {
   height: 45px;
   display: flex;
   align-items: center;
   margin-left: 10px;
   margin-right: 10px;
+  font-size: 30px;
 }
-#managementContainer #pageSelector #pageNumber span {
+#pageSelector #pageNumber span {
   height: fit-content;
 }
-#managementContainer #pageSelector a {
+#pageSelector a {
   width: fit-content;
   height: 45px;
 }
-#managementContainer #pageSelector div {
+#pageSelector div {
   height: fit-content;
   overflow: hidden;
 }
-#managementContainer #pageSelector img {
-  background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
+#pageSelector img {
+  background-color: var(--mainColor2);
   border-radius: 0 4px 4px 0;
   height: 45px;
   transition: 0.3s;
 }
-#managementContainer #pageSelector img:hover {
+#pageSelector img:hover {
   cursor: pointer;
   filter: brightness(130%) drop-shadow(0 0 1px black);
 }
-#managementContainer #pageSelector #previus {
+#pageSelector #previus {
   transform: scaleX(-1);
 }
 #managementContainer #tagsContainer {
@@ -271,9 +275,14 @@
   padding-right: 10px;
   padding-left: 10px;
 }
+#DIVMinQuality span{
+  color:#dfdfdf;
+  margin-right:20px;
+
+}
 #inputMinQuality{
   margin-top:10px;
-  width: 80%;
+  width: 50%;
   margin-left:10%;
   margin-right:10%;
   -webkit-appearance: none;
@@ -291,6 +300,8 @@
   cursor: pointer;
 }
 #managementContainer #tagsContainer #label {
+  margin-right: 20px;
+  color:#dfdfdf;
   font-size: 30px;
 }
 #managementContainer #tagsContainer #tagsSection {
@@ -304,12 +315,12 @@
   display: none;
 }
 #managementContainer #tagsContainer #tagsSection span {
-  border-radius: 5px;
+  border-radius: 2px;
   background-color: #2e3045;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px;
+  margin: 4px;
 }
 #managementContainer #tagsContainer #tagsSection span a.tagDelete {
   background-color: #db1212;
@@ -328,12 +339,12 @@ input {
 
 
 #imageBoard {
-  background: #32303a;
+  background: rgb(42, 42, 82);
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  width: 85vw;
+  border-radius: 2px;
+  width: 95vw;
   padding: 15px 15px;
-  columns: 7;
+  columns: 6;
   grid-gap: 2vw;
   break-inside: avoid;
 }
@@ -368,34 +379,32 @@ input {
 }
 #imageBoard figure {
   break-inside: avoid;
-  cursor: pointer;
   margin-bottom: 3vh;
   border-radius: 1px;
   overflow: hidden;
   width: 100%;
 }
 #imageBoard figure figcaption {
-  background-color: var(--mainColor);
-  color: #12ce41;
+  color: #dfdfdf;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 300;
   text-align: center;
   position: relative;
   z-index: 2;
 }
 #imageBoard figure img {
+  cursor: pointer;
   max-height: 400px;
   width: auto;
   width: 100%;
-  transition: 0.6s;
-  filter: brightness(95%);
+  transition: 0.2s;
+  filter: brightness(100%);
 }
 #imageBoard figure video {
   width: 100%;
 }
-#imageBoard figure:hover img {
-  transform: scale(1.1);
-  filter: brightness(100%);
+#imageBoard figure img:hover {
+  filter: brightness(130%);
 }
 #options {
   background: #32303a;
@@ -417,4 +426,10 @@ input {
   #options {
     display: none;
   }
+}
+
+#turnToBest{
+  color:#dfdfdf;
+  margin-top: 10px;
+  font-size: 25px;
 }
