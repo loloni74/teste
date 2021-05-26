@@ -1,6 +1,12 @@
 let datas = document.getElementsByTagName("data");
 const data = JSON.parse(datas[0].innerHTML);
 const query = JSON.parse(datas[1].innerHTML);
+localStorage.removeItem('starred')
+if (!localStorage.getItem('starreds')){
+  localStorage.setItem('starreds', JSON.stringify([{src:'placeholder'}]))
+}
+
+
 
 import htmlBuilder from "./generalUse/htmlBuilder.js";
 String.prototype.splice = function (idx, rem, str) {
@@ -18,6 +24,7 @@ class page {
       let div = document.createElement("div");
       let figure = document.createElement("figure");
       let figCaption = document.createElement("figcaption");
+      let star = document.createElement('span')
       let img = document.createElement("img");
       img.alt = 'HentaiImage'
 
@@ -25,6 +32,40 @@ class page {
       figCaption.innerHTML = element.score;
       figure.style.display = "none";
 
+      star.classList.add("fa")
+      star.classList.add("fa-star")
+      star.classList.add("star")
+
+      let beforeStarredList = JSON.parse(localStorage.getItem('starreds'))
+      console.log(beforeStarredList)
+      star.onclick = ()=>{
+        star.classList.add('clicked')
+        let currentStarredList = JSON.parse(localStorage.getItem('starreds'))
+        currentStarredList.push(r34.src(element))
+        localStorage.setItem('starreds',JSON.stringify(currentStarredList))
+        console.log(JSON.parse(localStorage.getItem('starreds')))
+      }
+      for (let x=0; x< beforeStarredList.length;x++){
+
+        if (r34.src(element).src == beforeStarredList[x].src){
+          star.classList.add('clicked')
+          star.onclick = ()=>{
+            star.classList.remove('clicked')
+            let currentStarredList = JSON.parse(localStorage.getItem('starreds'))
+            for(let x = 0; x<currentStarredList.length; x++){
+              console.log(currentStarredList[x])
+              console.warn(r34.src(element))
+              if(currentStarredList[x].src == r34.src(element).src){
+                currentStarredList.splice(x,1)
+                console.log(currentStarredList)
+              }
+            }
+            localStorage.setItem('starreds',JSON.stringify(currentStarredList))
+            console.log(JSON.parse(localStorage.getItem('starreds')))
+          }
+        }
+      }
+      
       if (source === "r34") {
         var { file_Src, src, classe } = r34.src(element);
         if (true){
@@ -55,6 +96,7 @@ class page {
       img.classList.add("imagemDoCatalogo");
 
       figure.appendChild(img);
+      figCaption.appendChild(star)
       figure.appendChild(figCaption);
       div.appendChild(figure);
       this.DOMImageBoard.appendChild(div);

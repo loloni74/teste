@@ -433,3 +433,15 @@ input {
   margin-top: 10px;
   font-size: 25px;
 }
+
+
+.star{
+  margin-left: 10px;
+}
+.star:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.clicked{
+  color:orange;
+}
