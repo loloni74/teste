@@ -263,7 +263,6 @@ class modalMedia {
 
   createImage(element, dados) {
     console.log("Opening image + ", dados);
-    loadNextImage(dados)
     let div = document.createElement("div");
     let img = document.createElement("img");
     img.alt = 'hentaiImage'
