@@ -20,6 +20,7 @@ class page {
 
   }
   renderPosts(source) {
+    let contador = 1
     data.forEach((element) => {
       let div = document.createElement("div");
       let figure = document.createElement("figure");
@@ -27,6 +28,9 @@ class page {
       let star = document.createElement('span')
       let img = document.createElement("img");
       img.alt = 'HentaiImage'
+
+      contador++
+      div.setAttribute("imgCounter",contador)
 
       img.id = element.id;
       figCaption.innerHTML = element.score;
@@ -37,7 +41,6 @@ class page {
       star.classList.add("star")
 
       let beforeStarredList = JSON.parse(localStorage.getItem('starreds'))
-      console.log(beforeStarredList)
       star.onclick = ()=>{
         star.classList.add('clicked')
         let currentStarredList = JSON.parse(localStorage.getItem('starreds'))
@@ -92,6 +95,7 @@ class page {
       };
       img.onclick = () => {
         modalMedia.openModal(element.id);
+        console.log(element)
       };
       img.classList.add("imagemDoCatalogo");
 
@@ -220,7 +224,6 @@ class modalMedia {
     let listadetags = dados.tags.split(' ')
     listadetags.pop()
     listadetags.splice(0,1)
-    console.log(listadetags)
     listadetags.forEach(element => {
       let tag = document.createElement('a')
       tag.innerHTML = element
@@ -260,6 +263,7 @@ class modalMedia {
 
   createImage(element, dados) {
     console.log("Opening image + ", dados);
+    loadNextImage(dados)
     let div = document.createElement("div");
     let img = document.createElement("img");
     img.alt = 'hentaiImage'
@@ -559,19 +563,24 @@ function moveTouch(e) {
 
 
 // Load images at cache
-
-/*
 window.onload = ()=>{
+  /// loadAllImagesAtCache()
+}
+
+function loadAllImagesAtCache(){
   let allImages = document.getElementById('imgLoadCache').children
   for (let x = 0; x < allImages.length; x++){
     let element = allImages[x]
-    console.log(element.getAttribute('file_src').endsWith('.webm'))
-    if (element.getAttribute('file_Src').endsWith('.png') || element.getAttribute('file_Src').endsWith('.jpg') || element.getAttribute('file_Src').endsWith('.jpeg')){
-      element.src = element.getAttribute('file_Src')
-    }
-  } 
+    loadImage(element)
+    
+  }
 }
-*/
+
+function loadImage(element){
+  if (element.getAttribute('file_Src').endsWith('.png') || element.getAttribute('file_Src').endsWith('.jpg') || element.getAttribute('file_Src').endsWith('.jpeg')){
+    element.src = element.getAttribute('file_Src')
+  }
+}
 
 let best = document.getElementById('turnToBest')
 best.href = tagsHandling.getFullUrl().replace('tags=','tags=sort:score:desc+')

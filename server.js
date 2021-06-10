@@ -12,7 +12,7 @@ app.use(cors()) // The cross-request treatment
 app.use(express.json()) // JSON handling
 app.use(expressLayouts) // Express ejs layout
 
-// Search engine config
+// Search engine config-
 app.use('/robots.txt', (req,res) => {
     res.type('text/plain')
     res.send("User-agent: *\nDisallow: /");

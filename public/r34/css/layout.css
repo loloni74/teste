@@ -1,11 +1,15 @@
 :root {
-  --bodyColor: #152342;
-  --mainColor: #3f184b;
-  --white: #fcfcfc;
-  --selectedColor: #14FF72;
-  --mainColor1: #5F45FF;
-  --mainColor2: #024DFA;
-  --gradient: linear-gradient(90.47deg, #5F45FF 0%, #024DFA 75.64%);
+    --bodyColor: #1c1c1d;
+    --mainColor: #1c1c1d;
+    --white: #c5c5c5;
+    --selectedColor: #14FF72;
+    --mainColor1: #5F45FF;
+    --mainColor2: #024DFA;
+    --gradient: #3b3a3a;
+}
+input::placeholder {
+  color: var(--white);
+  opacity: 1; /* Firefox */
 }
 @font-face {
   font-family: 'Cute Font';

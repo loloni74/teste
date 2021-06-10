@@ -1,7 +1,4 @@
-::placeholder {
-  color: white;
-  opacity: 1; /* Firefox */
-}
+
 
 body{
   height: 2000px;
@@ -38,32 +35,33 @@ body{
 }
 @media (max-width: 600px) {
   #domTagInput {
-    width: 200px;
+    width: 80vw;
+    height: 20px;
+    margin-top:10px !important;
   }
   h1 {
-    font-size: 4em !important;
+    font-size: 6em !important;
   }
+  
 }
 #addTag {
   display: none;
 }
-#domTagInput{
-  margin-top: 30px;
-  margin-left: 0;
-  margin-right: 0;
-  background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
-  box-shadow: inset 0px 0px 4px 1px rgba(1, 38, 122, 0.5);
-  border-radius: 16px;
-  font-size: 20px;
-  border: 0;
-  padding: 14px;
-  color: white !important;
+#domTagInput {
+    margin-top: -10px;
+    margin-left: 0;
+    margin-right: 0;
+    background: var(--gradient);
+    font-size: 20px;
+    border: 0;
+    padding: 14px;
+    color: white !important;
 }
 button{
   margin-top: 0 !important;
-  background: linear-gradient(270deg, var(--mainColor1) 0%, var(--mainColor2) 70%);
+  background: var(--gradient);
   border: 0;
-  padding: 7px;
+  padding: 10px;
   color:white  !important;
   transition: 0.3s;
 }

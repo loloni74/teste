@@ -1,3 +1,5 @@
+
+
 #head {
   color: white;
   display: flex;
@@ -60,11 +62,17 @@
 
 
 #body {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 3vh;
+    max-width: 1900px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-top: 3vh;
 }
+
 #navBar {
+    z-index: 10;
+    position:fixed;
+    width:100%;
   -webkit-user-select: none;
   /* Safari */
   -moz-user-select: none;
@@ -73,38 +81,47 @@
   /* IE10+/Edge */
   user-select: none;
   /* Standard */
-  background: var(--gradient);
+  background: #090909;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   height: 60px;
 }
 @media (max-width: 600px) {
-  #navBar div#logoDiv {
-    display: none;
+  div#logoDiv {
+      font-size: 9px;
   }
   #modalMediaContent .infoContainer {
     display: none;
   }
+  #turnToBest{
+      margin-top: 10px;
+  }
 }
-#navBar div#logoDiv div {
+#logo{
   font-size: 3.6em;
-  background-color: #01123b;
+  color: var(--selectedColor);
   padding: 10px;
   padding-left: 20px;
   padding-right: 40px;
-  border-radius: 0px 0px 50px 0px;
+  position:fixed;
+  z-index: 999;
+}
+#logo:hover{
+  text-shadow: 0px 0px  30px #36eb6c;
 }
 #navBar div#logoDiv div #logo {
-  color: var(--white);
+  color: var(--selectedColor);
+}
+#navBar div#logoDiv div #logo:hover {
+  color: white;
 }
 #navBar input {
+    border-radius:3px 0 0 3px;
   margin: 10px;
   margin-left: 0;
   margin-right: 0;
-  background-color: #0135ad;
-  box-shadow: inset 0px 0px 4px 1px rgba(1, 38, 122, 0.5);
-  border-radius: 16px 0px 0px 16px;
+  background-color: var(--gradient);
   font-size: 20px;
   border: 0;
   padding: 20px;
@@ -114,20 +131,23 @@
   display: flex;
   margin-top: 10px;
   height: 40px;
-  background-color: #01123b;
+  background-color: var(--gradient);
+  color:var(--selectedColor);
   align-items: center;
   justify-content: center;
-  color: var(--mainColor2);
   font-size: 50px;
   width: 50px;
-  border-radius: 0px 16px 16px 0px;
+  border-radius: 0px 3px 3px 0px;
   cursor: pointer;
 }
 #navBar span span {
-  margin: 0 !important;
+  font-weight: bolder;
+  margin: 0 ;
+  line-height: 0;
+
 }
 #navBar span:hover {
-  background-color: #022169;
+  background-color: var(--gradient);
 }
 #navBar span:hover span {
   color: white;
@@ -150,11 +170,11 @@
 }
 #navBar div#applySearchQuery a {
   animation-name: pulse;
-  animation-duration: 0.6s;
+  animation-duration: 1.2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
-  font-size: 20px;
+  font-size: 2.9em;
   padding: 5px;
   border-radius: 3px;
   box-shadow: 1px 1px 10px rgba(7, 8, 71, 0.349);
@@ -163,7 +183,7 @@
 }
 #navBar div#applySearchQuery a:hover {
   box-shadow: inset 1px 1px 10px rgba(7, 8, 71, 0.349);
-  font-size: 19px;
+  transform: scale(1.1);
 }
 #navBar nav ul {
   width: 100%;
@@ -201,7 +221,6 @@
   }
 }
 #managementContainer {
-  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -210,12 +229,11 @@
   font-family: "Cute Font" !important;
 }
 #pageSelector {
-  margin-bottom:-10px;
+  margin-bottom:-30px;
   margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--mainColor2);
   font-size: 25px;
   border-radius: 4px;
 }
@@ -239,14 +257,14 @@
   overflow: hidden;
 }
 #pageSelector img {
-  background-color: var(--mainColor2);
   border-radius: 0 4px 4px 0;
   height: 45px;
   transition: 0.3s;
 }
+
 #pageSelector img:hover {
   cursor: pointer;
-  filter: brightness(130%) drop-shadow(0 0 1px black);
+  background-color: var(--selectedColor);
 }
 #pageSelector #previus {
   transform: scaleX(-1);
@@ -255,53 +273,60 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 3px;
+  background-color: var(--gradient);
   font-family: "Cute Font" !important;
-  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.25);
   padding-right: 10px;
   padding-left: 10px;
+     margin-top: 150px;
 }
 #DIVMinQuality{
+  width: 132.9px;
   margin: 0 auto;
-  margin-top:5px;
+  margin-top:-3px;
+  background-color:var(--gradient);
   margin-bottom:30px;
   font-size:30px ;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
   font-family: "Cute Font" !important;
-  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 2px 1px 1px rgba(0, 0, 0, 0.25);
   padding-right: 10px;
   padding-left: 10px;
 }
 #DIVMinQuality span{
-  color:#dfdfdf;
-  margin-right:20px;
+  
 
 }
+#displayQualidade {
+    color: var(--selectedColor);
+}
 #inputMinQuality{
+   
+    padding: 10px;
   margin-top:10px;
-  width: 50%;
+  width: 132.92px;
   margin-left:10%;
   margin-right:10%;
   -webkit-appearance: none;
-  height: 40px;
-  background: #152342;
+  background: var(--gradient);
   box-shadow: 0px 0px 4px 2px rgb(0 0 0 / 25%);
   outline: none;
+  border-radius: 3px;
 }
 #inputMinQuality::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 25px;
   height: 25px;
-  background: var(--mainColor1);
+  background: var(--selectedColor);
   cursor: pointer;
+  border-radius: 3px;
 }
 #managementContainer #tagsContainer #label {
   margin-right: 20px;
-  color:#dfdfdf;
   font-size: 30px;
 }
 #managementContainer #tagsContainer #tagsSection {
@@ -315,8 +340,8 @@
   display: none;
 }
 #managementContainer #tagsContainer #tagsSection span {
-  border-radius: 2px;
-  background-color: #2e3045;
+  border-radius: 3px;
+  background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,12 +364,10 @@ input {
 
 
 #imageBoard {
-  background: rgb(42, 42, 82);
-  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 2px;
+  border-radius: 3px;
   width: 95vw;
   padding: 15px 15px;
-  columns: 6;
+  columns:7;
   grid-gap: 2vw;
   break-inside: avoid;
 }
@@ -354,18 +377,27 @@ input {
   }
 }
 @media (max-width: 750px) {
+  #logo{
+    display:none;
+  }
+  #imageBoard {
+    columns: 5;
+  }
+}
+@media (max-width: 600px) {
+  #tagsContainer{
+    margin-top:100px !important;
+  }
+  #logo{
+    display:none;
+  }
   #imageBoard {
     columns: 4;
   }
 }
-@media (max-width: 600px) {
-  #imageBoard {
-    columns: 3;
-  }
-}
 @media (max-width: 400px) {
   #imageBoard {
-    columns: 2;
+    columns: 3;
   }
 }
 #imageBoard .figureVideo {
@@ -375,23 +407,27 @@ input {
   border: 1px solid #36eb6c;
 }
 #imageBoard .figureImage {
-  border: 1px solid rgb(250, 43, 215);
+  border: 1px groove rgb(250, 43, 215);
 }
 #imageBoard figure {
   break-inside: avoid;
   margin-bottom: 3vh;
-  border-radius: 1px;
+  border-radius: 3px;
   overflow: hidden;
   width: 100%;
 }
-#imageBoard figure figcaption {
-  color: #dfdfdf;
-  font-size: 16px;
-  font-weight: 300;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-}
+    #imageBoard figure figcaption {
+        background-image: linear-gradient(to bottom, rgba(59, 58, 58,0.8), rgba(59, 58, 58,1));
+        margin-top: -30px;
+        color: #dfdfdf;
+        font-size: 16px;
+        font-weight: 300;
+        text-align: center;
+        position: relative;
+        z-index: 6;
+        padding:3px;
+        padding-bottom:2px;
+    }
 #imageBoard figure img {
   cursor: pointer;
   max-height: 400px;
@@ -409,7 +445,7 @@ input {
 #options {
   background: #32303a;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
-  border-radius: 40px;
+  border-radius: 3px;
   width: 17vw;
   display: flex;
   align-items: center;
@@ -430,8 +466,15 @@ input {
 
 #turnToBest{
   color:#dfdfdf;
-  margin-top: 10px;
   font-size: 25px;
+  background-color: var(--gradient);
+  padding: 3px;
+  border-radius:3px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#turnToBest:hover{
+    color: var(--selectedColor);
 }
 
 

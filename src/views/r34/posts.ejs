@@ -3,9 +3,13 @@
 <link rel="stylesheet" type="text/css" href="css/posts.css" />
 <%- contentFor('body') %>
 
-<data> <%= data %> </data>
+<data>
+  <%= data %>
+</data>
 
-<data> <%= query %> </data>
+<data>
+  <%= query %>
+</data>
 
 
 
@@ -14,29 +18,31 @@
 </div>
 
 <form action="posts" autocomplete='off' id='tagInputForm'>
-<%- include('uses/topBar')%>
-<button type="submit" style='display:none' id='search'>Search</button>
+  <%- include('uses/topBar')%>
+  <button type="submit" style='display:none' id='search'>Search</button>
 </form>
 
 
 <div id="managementContainer">
-  <input type="range" min='0' max='300' step='10' id="inputMinQuality">
-<div id='DIVMinQuality'>
-  <span>Quality: </span> <span id='displayQualidade'>0</span>
-</div>
-
   <div id="tagsContainer">
     <div id="label">TAGS:</div>
     <div id="tagsSection"></div>
   </div>
+  <input type="range" min='0' max='300' step='10' id="inputMinQuality">
+  <div id='DIVMinQuality'>
+    <span>Quality:&nbsp </span> <span id='displayQualidade'>0</span>
+  </div>
+
+
   <div style='display:block !important;' id='imgLoadCache'></div>
+  
   <a id='turnToBest'>turnToBest</a>
   <div id="pageSelector">
     <a href="" id='previusLink'><img src="/r34/next" alt="previus" id='previus'></a>
     <div id='pageNumber'><span>0</span></div>
     <a href="" id='nextLink'><img src="/r34/next" alt="next" id='next'></a>
   </div>
-  
+
 </div>
 
 <div id="body">
@@ -46,4 +52,3 @@
 
 
 <script type="module" src="js/posts.js"></script>
-

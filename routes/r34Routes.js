@@ -29,17 +29,17 @@ routes.get("/best", async (req, res) => {
 
 
 // Test Router
-routes.all("/test", (req, res) => {
-  const htmlBuilder = require("./public/generalUse/htmlBuilder");
-  let result = htmlBuilder.build(
-    "rule34.xxx/",
-    htmlBuilder.objToList({ pid: 1, query: "the_last_of_us minecraft" })
-  );
-  res.send(result);
-});
+routes.all("/")
 
 routes.all("/next", (req, res) => {
   res.sendFile(__dirname + "/next-Icon.png");
 });
+
+routes.all("/logo", (req,res) =>{
+  res.sendFile(__dirname + "/vitao.png")
+})
+routes.all("/logoIco", (req,res) =>{
+  res.sendFile(__dirname + "/logo.ico")
+})
 
 module.exports = routes;
