@@ -288,7 +288,12 @@ class modalMedia {
     let id = modalMedia.idAtual;
     for (let x = 0; x < listaDeImagens.length; x++) {
       if (listaDeImagens[x].id === id) {
-        modalMedia.changeImageModal(listaDeImagens[x + 1].id);
+        try{
+          modalMedia.changeImageModal(listaDeImagens[x + 1].id);
+        }catch{
+          modalMedia.closeModal(modalMedia)
+        }
+        
       }
     }
   }
