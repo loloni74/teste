@@ -274,7 +274,7 @@ class modalMedia {
     img.id = element.id;
     img.onerror = r34.imgErrorFix(img);
     download.appendChild(img)
-    download.setAttribute("download","true")
+    download.setAttribute("download",dados.id)
     div.appendChild(download);
     this.DOMmodalContent.appendChild(this.createinfo(dados));
     this.DOMmodalContent.appendChild(div);
