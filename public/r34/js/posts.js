@@ -6,6 +6,7 @@ if (!localStorage.getItem('starreds')){
   localStorage.setItem('starreds', JSON.stringify([{src:'placeholder'}]))
 }
 
+console.log(JSON.parse(localStorage.getItem('starreds')))
 
 
 import htmlBuilder from "./generalUse/htmlBuilder.js";
@@ -126,7 +127,7 @@ class r34 {
       src = src.slice(0, -1);
     }
     return {
-      file_Src: "/image?url=" + element.file_url.replace('.xxx','.xxx/'),
+      file_Src: "/image?url=" + element.sample_url.replace('.xxx','.xxx/'),
       src: src,
       classe: classe
     };
@@ -219,8 +220,6 @@ class modalMedia {
   createinfo(dados){
     let info = document.createElement("div");
     info.classList.add("infoContainer");
-
-
     let listadetags = dados.tags.split(' ')
     listadetags.pop()
     listadetags.splice(0,1)
@@ -518,6 +517,10 @@ document.addEventListener("keydown", (event) => {
     Left: modalMedia.previusModal,
     ArrowLeft: modalMedia.previusModal,
     Esc: modalMedia.closeModal,
+    Down: modalMedia.closeModal,
+    ArrowDown: modalMedia.closeModal,
+    Up: modalMedia.closeModal,
+    ArrowUp: modalMedia.closeModal,
     Escape: modalMedia.closeModal,
   };
   if (modalMedia.modalOn && events[key]) {
@@ -544,17 +547,21 @@ function moveTouch(e) {
   var currentY = e.touches[0].clientY;
   var diffX = initialX - currentX;
   var diffY = initialY - currentY;
-  if (Math.abs(diffX) > Math.abs(diffY)) {
+  
+  console.log(diffX, diffY)
+  if (Math.abs(2*diffX) > Math.abs(diffY)-5) {
     // sliding horizontally
     if (diffX > 0) {
       // swiped left
       console.log("swiped left");
       modalMedia.nextModal(modalMedia);
-    } else {
+    } else if(diffX < 0) {
       // swiped right
-      console.log("swiped left");
+      console.log("swiped rigth");
       modalMedia.previusModal(modalMedia);
     }
+  }else{
+      modalMedia.closeModal(modalMedia)
   }
   initialX = null;
   initialY = null;
@@ -563,7 +570,7 @@ function moveTouch(e) {
 
 // Load images at cache
 window.onload = ()=>{
-  /// loadAllImagesAtCache()
+  loadAllImagesAtCache()
 }
 
 function loadAllImagesAtCache(){
