@@ -264,14 +264,18 @@ class modalMedia {
     console.log("Opening image + ", dados);
     let div = document.createElement("div");
     let img = document.createElement("img");
+    let download = document.createElement("a")
     img.alt = 'hentaiImage'
 
     div.classList.add("imgContainer");
     img.src = element.getAttribute("file_Src")
+    download.href = element.getAttribute("file_Src")
     console.log(img.src);
     img.id = element.id;
     img.onerror = r34.imgErrorFix(img);
-    div.appendChild(img);
+    download.appendChild(img)
+    download.setAttribute("download","true")
+    div.appendChild(download);
     this.DOMmodalContent.appendChild(this.createinfo(dados));
     this.DOMmodalContent.appendChild(div);
   }
